@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in to your account</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{
+    --bg:#e6eaef; --card:#ffffff; --ink:#1b1b1b; --muted:#605e5c;
+    --accent:#0067b8; --accent-dark:#005da6; --line:#d2d0ce;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,Arial,sans-serif;color:var(--ink);
+    min-height:100vh;display:flex;flex-direction:column;
+    background:var(--bg);background-size:cover}
+  .trainbar{background:#b42318;color:#fff;text-align:center;font-size:13px;font-weight:600;
+    padding:8px 12px;letter-spacing:.02em}
+  .wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 16px}
+  .card{width:100%;max-width:440px;background:var(--card);
+    box-shadow:0 2px 6px rgba(0,0,0,.18);padding:44px 44px 36px}
+  .brand{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+  .brand .grid{display:grid;grid-template-columns:10px 10px;grid-template-rows:10px 10px;gap:2px}
+  .brand .grid i{display:block;width:10px;height:10px}
+  .brand .grid i:nth-child(1){background:#f25022}
+  .brand .grid i:nth-child(2){background:#7fba00}
+  .brand .grid i:nth-child(3){background:#00a4ef}
+  .brand .grid i:nth-child(4){background:#ffb900}
+  .brand span{font-size:15px;color:#5e5e5e;font-weight:600}
+  h1{font-size:24px;font-weight:600;margin:12px 0 2px}
+  .sub{font-size:15px;color:var(--ink);margin:14px 0 2px}
+  input[type=email],input[type=password]{width:100%;padding:6px 0;border:0;border-bottom:1px solid #666;
+    font-size:15px;outline:none;margin-top:18px;background:transparent}
+  input:focus{border-bottom:2px solid var(--accent)}
+  .links{margin-top:16px;font-size:13px}
+  .links a{color:var(--accent);text-decoration:none;display:inline-block;margin-bottom:8px}
+  .actions{display:flex;justify-content:flex-end;margin-top:22px}
+  button{min-width:108px;padding:8px 12px;background:var(--accent);color:#fff;border:0;
+    font-size:15px;cursor:pointer}
+  button:hover{background:var(--accent-dark)}
+  .back{min-width:108px;padding:8px 12px;background:#e6e6e6;color:#1b1b1b;border:0;font-size:15px;
+    cursor:pointer;margin-right:8px}
+  .foot{margin-top:40px;font-size:12px;color:#747474;text-align:right}
+  .step{display:none}.step.active{display:block}
+  .result{display:none;text-align:center;padding:12px 0}
+  .result.show{display:block}
+  .result .tick{width:54px;height:54px;border-radius:50%;background:#eafaf0;color:#12824a;
+    display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 18px}
+  .result h2{font-size:20px;margin:0 0 10px}
+  .result p{color:var(--muted);font-size:14px;max-width:320px;margin:0 auto}
+  .idrow{font-size:15px;margin-top:4px}
+</style>
+</head>
+<body>
+  <div class="trainbar">⚠ SECURITY AWARENESS TRAINING — SIMULATED SIGN-IN — DO NOT ENTER REAL CREDENTIALS</div>
+  <div class="wrap">
+    <div class="card">
+
+      <!-- Step 1: email -->
+      <div id="step1" class="step active">
+        <div class="brand"><div class="grid"><i></i><i></i><i></i><i></i></div><span>Microsoft</span></div>
+        <h1>Sign in</h1>
+        <input type="email" id="email" placeholder="Email, phone, or Skype">
+        <div class="links">
+          <a href="#" onclick="return false">No account? Create one!</a><br>
+          <a href="#" onclick="return false">Can't access your account?</a>
+        </div>
+        <div class="actions"><button onclick="toStep2()">Next</button></div>
+      </div>
+
+      <!-- Step 2: password -->
+      <div id="step2" class="step">
+        <div class="brand"><div class="grid"><i></i><i></i><i></i><i></i></div><span>Microsoft</span></div>
+        <div class="idrow" id="who"></div>
+        <h1>Enter password</h1>
+        <input type="password" id="password" placeholder="Password">
+        <div class="links"><a href="#" onclick="return false">Forgot password?</a></div>
+        <div class="actions">
+          <button class="back" onclick="toStep1()">Back</button>
+          <button onclick="finish()">Sign in</button>
+        </div>
+      </div>
+
+      <!-- Reveal -->
+      <div id="result" class="result">
+        <div class="tick">✓</div>
+        <h2>This was a phishing simulation</h2>
+        <p>On a real attacker's page, the email and password you just typed would now be in their hands. Nothing was captured here. If you received this as an email, report it to your security team.</p>
+      </div>
+
+      <div class="foot">Terms of use&nbsp;&nbsp;Privacy &amp; cookies&nbsp;&nbsp;···</div>
+    </div>
+  </div>
+
+<script>
+  // No data is collected, stored, or transmitted. Steps only change what is shown.
+  function toStep2(){
+    var e=document.getElementById('email').value||'someone@company.com';
+    document.getElementById('who').textContent=e;
+    document.getElementById('step1').classList.remove('active');
+    document.getElementById('step2').classList.add('active');
+  }
+  function toStep1(){
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step1').classList.add('active');
+  }
+  function finish(){
+    document.getElementById('email').value='';
+    document.getElementById('password').value='';
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('result').classList.add('show');
+  }
+</script>
+</body>
+</html>
